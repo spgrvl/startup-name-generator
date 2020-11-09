@@ -1,9 +1,16 @@
-from lists.config import ebird_api_key
-from ebird.api import get_taxonomy
+import threading
+import requests
+import json
 import re
 
+def obtain_taxonomy():
+    global taxonomy
+    taxonomy_raw = requests.get('https://api.ebird.org/v2/ref/taxonomy/ebird?fmt=json').text
+    taxonomy = json.loads(taxonomy_raw)
+
 def get_bird_names():
-    taxonomy = get_taxonomy(ebird_api_key)
+    while type(taxonomy) == str:
+        pass
     birds = set()
     for bird in taxonomy:
         try:
@@ -16,3 +23,7 @@ def get_bird_names():
         except:
             pass
     return list(birds)
+
+taxonomy = ""
+taxonomy_thread = threading.Thread(target=obtain_taxonomy)
+taxonomy_thread.start()
