@@ -1,5 +1,6 @@
 from lists.nouns import get_nouns
 from lists.birds import get_bird_names
+from lists.colors import get_colors
 from domain_checker import check_availability, quit_webdriver
 import random
 
@@ -10,9 +11,13 @@ def find_name(name_type):
         names = get_bird_names()
     domain_available = False
     while domain_available == False:
-        startup_name = names[random.randint(0,len(names)-1)]
+        startup_name = names[random.randint(0,len(names)-1)].capitalize()
         domain_available = check_availability(startup_name.lower())
-    print("\nYour startup name is {} and domain {}.com is available!".format(startup_name.capitalize(), startup_name.lower()))
+        if domain_available == False:
+            colors = get_colors()
+            startup_name = colors[random.randint(0,len(colors)-1)].capitalize() + startup_name
+            domain_available = check_availability(startup_name.lower())
+    print("\nYour startup name is {} and domain {}.com is available!".format(startup_name, startup_name.lower()))
 
 choice=True
 while choice:
