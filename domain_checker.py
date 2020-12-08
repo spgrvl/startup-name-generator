@@ -8,11 +8,11 @@ import re
 import time
 
 if os.name == "nt":
-	chrome_path = r"C:\chromedriver_win32\chromedriver.exe"
+    chrome_path = r"C:\chromedriver_win32\chromedriver.exe"
 elif os.name == "posix":
-	chrome_path = "/usr/lib/chromium-browser/chromedriver"
+    chrome_path = "/usr/lib/chromium-browser/chromedriver"
 else:
-	print("Error: Chrome path is not set for this os: " + os.name)
+    print("Error: Chrome path is not set for this os: " + os.name)
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
